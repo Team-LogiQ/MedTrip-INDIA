@@ -1,0 +1,32 @@
+{
+  "name": "medtrip-backend",
+  "version": "1.0.0",
+  "description": "Backend API for MedTrip India Medical Tourism Platform",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "keywords": [
+    "medical",
+    "tourism",
+    "healthcare",
+    "api"
+  ],
+  "author": "MedTrip India",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-oauth2-jwt-bearer": "^1.7.4",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.0.3",
+    "nodemailer": "^6.9.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

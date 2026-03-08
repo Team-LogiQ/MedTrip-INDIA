@@ -1,0 +1,34 @@
+# Quick Git Commands for GitHub Upload
+
+## Step 1: Initialize Git
+cd "C:\Users\jayes\Downloads\Medical Tourism Website"
+git init
+
+## Step 2: Add all files
+git add .
+
+## Step 3: Check what will be uploaded
+git status
+
+## Step 4: Commit
+git commit -m "Initial commit: MedTrip India Medical Tourism Platform"
+
+## Step 5: Add GitHub remote (replace YOUR-USERNAME and REPO-NAME)
+git remote add origin https://github.com/YOUR-USERNAME/REPO-NAME.git
+
+## Step 6: Rename branch to main
+git branch -M main
+
+## Step 7: Push to GitHub
+git push -u origin main
+
+## Future updates:
+git add .
+git commit -m "Your update message"
+git push origin main
+
+## Check repository status anytime:
+git status
+
+## View commit history:
+git log --oneline
