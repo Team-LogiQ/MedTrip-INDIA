@@ -1,5 +1,7 @@
 import { useState, FormEvent } from "react";
+import { motion } from "framer-motion";
 import { Phone, Mail, MessageCircle, Clock, MapPin, HelpCircle } from "lucide-react";
+import { AnimatedSection, AnimatedGrid, AnimatedCard } from "../components/AnimatedSection";
 
 const API_BASE_URL = (import.meta as any).env?.VITE_API_URL || "http://localhost:5000";
 

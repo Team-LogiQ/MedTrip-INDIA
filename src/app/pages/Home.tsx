@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { motion } from "framer-motion";
 import {
   Search,
   ChevronDown,
@@ -23,6 +24,32 @@ import { treatments } from "../data/treatmentData";
 
 const HERO_IMG = "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080";
 const DOCTOR_IMG = "https://images.unsplash.com/photo-1758691461990-03b49d969495?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkb2N0b3IlMjBwYXRpZW50JTIwY29uc3VsdGF0aW9uJTIwbWVkaWNhbHxlbnwxfHx8fDE3NzI5MDEzNTd8MA&ixlib=rb-4.1.0&q=80&w=1080";
+
+// Animation variants
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 }
+};
+
+const fadeIn = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: { opacity: 1, scale: 1 }
+};
 
 const featuredTreatments = [
   { id: "heart-bypass", image: "/images/treatments/heart-bypass.jpg", label: "Heart Bypass Surgery", savings: "Up to 70% savings" },
@@ -166,38 +193,67 @@ export function Home() {
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
-          <div className="max-w-3xl mt-8">
+          <motion.div 
+            className="max-w-3xl mt-8"
+            initial="hidden"
+            animate="visible"
+            variants={staggerContainer}
+          >
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-5">
+            <motion.div 
+              className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-5"
+              variants={fadeInUp}
+            >
               <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
               <span className="text-teal-200" style={{ fontSize: "0.8rem", fontWeight: 600 }}>
                 India's #1 Medical Tourism Platform
               </span>
-            </div>
+            </motion.div>
 
-            <h1
+            <motion.h1
               className="text-white mb-4"
               style={{ fontSize: "clamp(2rem, 4vw, 3.25rem)", fontWeight: 800, lineHeight: 1.15 }}
+              variants={fadeInUp}
             >
               Your Health, Our Priority.{" "}
               <span className="text-teal-300">MedTrip India</span>
-            </h1>
-            <p className="text-blue-100 mb-3 text-xl" style={{ fontWeight: 600, lineHeight: 1.4 }}>
+            </motion.h1>
+            <motion.p 
+              className="text-blue-100 mb-3 text-xl" 
+              style={{ fontWeight: 600, lineHeight: 1.4 }}
+              variants={fadeInUp}
+            >
               India's Foremost Medical Tourism Platform
-            </p>
-            <p className="text-blue-100 mb-8 max-w-2xl" style={{ fontSize: "1rem", lineHeight: 1.7 }}>
+            </motion.p>
+            <motion.p 
+              className="text-blue-100 mb-8 max-w-2xl" 
+              style={{ fontSize: "1rem", lineHeight: 1.7 }}
+              variants={fadeInUp}
+            >
               We connect international patients with India's top-tier hospitals and world-class medical professionals. Experience affordable, high-quality healthcare with personalized care and comprehensive support. From consultation to recovery, we're with you every step of the way.
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
         </div>
       </section>
 
       {/* Stats Strip */}
       <section className="bg-gradient-to-r from-blue-600 to-teal-500 -mt-1">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <motion.div 
+            className="grid grid-cols-2 md:grid-cols-4 gap-4"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+          >
             {stats.map(({ value, label, icon: Icon }) => (
-              <div key={label} className="flex items-center gap-3">
+              <motion.div 
+                key={label} 
+                className="flex items-center gap-3"
+                variants={fadeInUp}
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
                 <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
                   <Icon className="w-5 h-5 text-white" />
                 </div>
@@ -205,9 +261,9 @@ export function Home() {
                   <div className="text-white" style={{ fontWeight: 800, fontSize: "1.25rem" }}>{value}</div>
                   <div className="text-blue-100" style={{ fontSize: "0.78rem" }}>{label}</div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -370,15 +426,24 @@ export function Home() {
               Browse our most-requested procedures with significant cost savings compared to Western countries.
             </p>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            {featuredTreatments.map((t) => (
-              <button
+          <motion.div 
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerContainer}
+          >
+            {featuredTreatments.map((t, index) => (
+              <motion.button
                 key={t.id}
                 onClick={() => {
                   navigate(`/results?treatment=${t.id}`);
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
-                className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-lg hover:border-blue-200 hover:-translate-y-0.5 transition-all text-left"
+                className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-lg hover:border-blue-200 text-left"
+                variants={fadeInUp}
+                whileHover={{ y: -8, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300 }}
               >
                 <div className="relative h-40 overflow-hidden bg-gray-100">
                   <ImageWithFallback
@@ -401,9 +466,9 @@ export function Home() {
                     <ArrowRight className="w-3 h-3" />
                   </div>
                 </div>
-              </button>
+              </motion.button>
             ))}
-          </div>
+          </motion.div>
           <div className="text-center mt-7">
             <button
               onClick={() => {
@@ -468,9 +533,20 @@ export function Home() {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <motion.div 
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+          >
             {whyIndia.map((item) => (
-              <div key={item.title} className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow">
+              <motion.div 
+                key={item.title} 
+                className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow"
+                variants={fadeInUp}
+                whileHover={{ y: -5 }}
+              >
                 <div className={`w-11 h-11 rounded-xl ${item.color} flex items-center justify-center mb-3`}>
                   <item.icon className="w-5 h-5" />
                 </div>
@@ -480,9 +556,9 @@ export function Home() {
                 <p className="text-gray-500" style={{ fontSize: "0.875rem", lineHeight: 1.6 }}>
                   {item.desc}
                 </p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -529,9 +605,20 @@ export function Home() {
               What Our Patients Say
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+          >
             {testimonials.map((t) => (
-              <div key={t.name} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col">
+              <motion.div 
+                key={t.name} 
+                className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col"
+                variants={scaleIn}
+                whileHover={{ scale: 1.03, boxShadow: "0 10px 30px rgba(0,0,0,0.1)" }}
+              >
                 <div className="flex items-center gap-1 mb-3">
                   {Array.from({ length: t.rating }).map((_, i) => (
                     <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
@@ -554,9 +641,9 @@ export function Home() {
                     <div className="text-teal-600" style={{ fontSize: "0.78rem", fontWeight: 500 }}>{t.treatment}</div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 

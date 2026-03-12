@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { motion } from "framer-motion";
 import { MapPin, Award, Star, Phone, Mail, Globe, ChevronRight, Search, Filter, Building2 } from "lucide-react";
 
 const hospitals = [
@@ -376,10 +377,14 @@ export function Hospitals() {
           </div>
 
           <div className="grid gap-6">
-            {filteredHospitals.map((hospital) => (
-              <div
+            {filteredHospitals.map((hospital, index) => (
+              <motion.div
                 key={hospital.id}
                 className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ y: -5 }}
               >
                 <div className="grid md:grid-cols-3 gap-6">
                   {/* Hospital Image */}
@@ -476,7 +481,7 @@ export function Hospitals() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

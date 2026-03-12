@@ -1,5 +1,22 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { Award, MapPin, Star, Calendar, GraduationCap, Stethoscope, Building2, CheckCircle } from "lucide-react";
+
+// Animation variants
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15
+    }
+  }
+};
 
 const doctors = [
   {
@@ -239,11 +256,19 @@ export function Doctors() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            {filteredDoctors.map((doctor) => (
-              <div
+          <motion.div 
+            className="grid md:grid-cols-2 gap-6"
+            initial="hidden"
+            animate="visible"
+            variants={staggerContainer}
+          >
+            {filteredDoctors.map((doctor, index) => (
+              <motion.div
                 key={doctor.id}
                 className="bg-white rounded-2xl shadow-md border border-gray-200 p-6 hover:shadow-xl transition-shadow"
+                variants={fadeInUp}
+                whileHover={{ y: -8, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300 }}
               >
                 <div className="flex gap-4 mb-4">
                   <img
@@ -317,9 +342,9 @@ export function Doctors() {
                     Book Appointment
                   </button>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
     </div>
